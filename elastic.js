@@ -121,8 +121,19 @@ angular.module('monospaced.elastic', [])
             });
             mirror.setAttribute('style', mirrorStyle);
           }
+          
+            var bufferedAdjust = null;
+            function adjust() {
+                if( !bufferedAdjust ) {
+                  bufferedAdjust = $timeout(_adjust, 100);
+                  bufferedAdjust.then(function () {
+                    bufferedAdjust = null
+                  });
+                }
+            }
 
-          function adjust() {
+
+          function _adjust() {
             var taHeight,
                 taComputedStyleWidth,
                 mirrorHeight,
